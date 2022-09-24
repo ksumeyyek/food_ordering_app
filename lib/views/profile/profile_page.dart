@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
+import 'package:food_ordering_app/views/intro_page.dart';
 import 'package:food_ordering_app/views/profile/login_page.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:get/get.dart';
@@ -75,8 +76,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
           decoration: InputDecoration(
 
-            hintText: "E-posta Adresin",
-            labelText: "sumeyyekorkmaz90@gmail.com",
+            hintText: "E-mail ",
+            labelText: "E-mail ",
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
                 borderSide: BorderSide.none),
@@ -95,8 +96,8 @@ class _ProfilePageState extends State<ProfilePage> {
         TextField(
           readOnly:true ,
           decoration: InputDecoration(
-            hintText: "Kullanıcı Adı",
-            labelText: "Kullanıcı Adı",
+            hintText: "User name",
+            labelText: "User name",
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
                 borderSide: BorderSide.none),
@@ -141,7 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => LoginPage()));
+                      builder: (context) => IntroPage()));
               });
 
           },

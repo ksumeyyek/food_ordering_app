@@ -118,9 +118,9 @@ class _CartPageState extends State<CartPage> {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(
                                       content: Text(
-                                          "${food.yemek_adi} silinsin mi?"),
+                                          "${food.yemek_adi} deleted?"),
                                       action: SnackBarAction(
-                                        label: "Evet",
+                                        label: "yes",
                                         onPressed: () {
                                           //    if (foodsList.length > 1) {
                                           setState(() {
