@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_ordering_app/cubit/cart_cubit.dart';
-import 'package:food_ordering_app/cubit/main_cubit.dart';
-
 import 'package:food_ordering_app/models/sepet_yemekler.dart';
-import 'package:food_ordering_app/models/yemekler.dart';
 import 'package:food_ordering_app/views/end.dart';
 
+var cartTotal;
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
 
@@ -18,6 +16,7 @@ class _CartPageState extends State<CartPage> {
   void initState() {
     super.initState();
     context.read<CartCubit>().cartList("sumeyye_korkmaz");
+    cartTotal=0;
   }
 
   bool searching = false;
@@ -55,7 +54,12 @@ class _CartPageState extends State<CartPage> {
         ],
       ),
       body: BlocBuilder<CartCubit, List<SepetYemekler>>(
+
         builder: (context, foodsList) {
+          cartTotal = 0;
+          for (var i = 0; i < foodsList.length; i++) {
+            cartTotal += foodsList[i].yemek_fiyat * foodsList[i].yemek_siparis_adet;
+          }
           if (foodsList.isNotEmpty) {
             return ListView.builder(
               itemCount: foodsList.length,
@@ -88,26 +92,28 @@ class _CartPageState extends State<CartPage> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                              width: 100,
-                              height: 100,
-                              child: Image.network(
-                                  "http://kasimadalan.pe.hu/yemekler/resimler/${food.yemek_resim_adi}")),
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 5, bottom: 5, right: 10),
-                                child: Text(
-                                  "${food.yemek_adi}",
-                                  style: TextStyle(fontSize: 25),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: Text("${total}.00 ₺ "),
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: SizedBox(
+                                width: 100,
+                                height: 100,
+                                child: Image.network(
+                                    "http://kasimadalan.pe.hu/yemekler/resimler/${food.yemek_resim_adi}")),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 5, bottom: 5, right: 10),
+                            child: Column(
+                              children: [
+                                  Text(
+                                    "${food.yemek_adi}",
+                                    style: TextStyle(fontSize: 25),
+                                  ),
+
+                                 Text("${total}.00 ₺ "),
+
+                              ],
+                            ),
                           ),
                           const Spacer(),
                           Column(
@@ -167,7 +173,7 @@ class _CartPageState extends State<CartPage> {
           child: Row(
             children: [
               Text(
-                "Total Price:",
+                "Total : ${cartTotal}.00 ₺ ",
                 style: TextStyle(fontSize: 20),
               ),
               const Spacer(),
